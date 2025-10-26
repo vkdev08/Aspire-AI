@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parental Dashboard - AI Career Buddy</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Arial', sans-serif;
+            min-height: 100vh;
+        }
+
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .dashboard-header {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+        }
+
+        .insight-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+        }
+
+        .metric-card {
+            text-align: center;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+        }
+
+        .mood-positive {
+            background: #e8f5e8;
+            color: #2e7d32;
+        }
+
+        .mood-neutral {
+            background: #fff3e0;
+            color: #ef6c00;
+        }
+
+        .mood-attention {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .engagement-high {
+            background: #e3f2fd;
+            color: #1565c0;
+        }
+
+        .engagement-medium {
+            background: #f3e5f5;
+            color: #7b1fa2;
+        }
+
+        .engagement-low {
+            background: #fce4ec;
+            color: #ad1457;
+        }
+
+        .interest-badge {
+            background: #f8f9fa;
+            border: 2px solid #6c757d;
+            border-radius: 20px;
+            padding: 5px 15px;
+            margin: 5px;
+            display: inline-block;
+        }
+
+        .chart-placeholder {
+            background: #f8f9fa;
+            border: 2px dashed #6c757d;
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="dashboard-header">
+            <h1><i class="fas fa-chart-line"></i> Parental Dashboard</h1>
+            <p>Monitor your child's interactions and growth with AI Career Buddy</p>
+            <a href="/" class="btn btn-primary"><i class="fas fa-arrow-left"></i> Back to Chat</a>
+            <a href="/parent_logout" class="btn btn-outline-secondary ms-2"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="insight-card">
+                    <h3><i class="fas fa-smile"></i> Today's Mood</h3>
+                    <div class="metric-card mood-{{ 'positive' if insights.mood == 'Very Positive' or insights.mood == 'Positive' else 'neutral' if insights.mood == 'Neutral' else 'attention' }}">
+                        <h2>{{ insights.mood }}</h2>
+                        <p>Based on conversation sentiment and engagement patterns</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="insight-card">
+                    <h3><i class="fas fa-comments"></i> Engagement Level</h3>
+                    <div class="metric-card engagement-{{ insights.engagement.lower() }}">
+                        <h2>{{ insights.engagement }}</h2>
+                        <p>{{ insights.total_interactions }} conversations today</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="insight-card">
+                    <h3><i class="fas fa-heart"></i> Interests Discovered</h3>
+                    {% if insights.interests %}
+                        <div>
+                            {% for interest in insights.interests %}
+                                <span class="interest-badge">{{ interest.title() }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p class="text-muted">No specific interests detected today. Encourage your child to talk more about what they like!</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="insight-card">
+                    <h3><i class="fas fa-graduation-cap"></i> Learning Topics</h3>
+                    {% if insights.learning_topics %}
+                        <div>
+                            {% for topic in insights.learning_topics %}
+                                <span class="interest-badge">{{ topic.title() }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p class="text-muted">No specific learning topics identified today.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="insight-card">
+            <h3><i class="fas fa-lightbulb"></i> Insights & Recommendations</h3>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <h5><i class="fas fa-star"></i> Strengths</h5>
+                    <ul>
+                        {% if insights.engagement == 'High' %}
+                            <li>Highly engaged in conversations</li>
+                        {% endif %}
+                        {% if insights.mood == 'Very Positive' or insights.mood == 'Positive' %}
+                            <li>Positive attitude and enthusiasm</li>
+                        {% endif %}
+                        {% if insights.interests %}
+                            <li>Showing clear interests in {{ insights.interests|length }} areas</li>
+                        {% endif %}
+                    </ul>
+                </div>
+
+                <div class="col-md-4">
+                    <h5><i class="fas fa-exclamation-triangle"></i> Areas to Watch</h5>
+                    <ul>
+                        {% if insights.mood == 'Needs Attention' %}
+                            <li>Child may need emotional support</li>
+                        {% endif %}
+                        {% if insights.engagement == 'Low' %}
+                            <li>Consider encouraging more conversation</li>
+                        {% endif %}
+                        {% if not insights.interests %}
+                            <li>Help child explore different interests</li>
+                        {% endif %}
+                    </ul>
+                </div>
+
+                <div class="col-md-4">
+                    <h5><i class="fas fa-lightbulb"></i> Suggestions</h5>
+                    <ul>
+                        <li>Ask about their favorite part of today's chat</li>
+                        {% if insights.interests %}
+                            {% for interest in insights.interests[:2] %}
+                                <li>Explore {{ interest }} activities together</li>
+                            {% endfor %}
+                        {% endif %}
+                        <li>Encourage questions about different careers</li>
+                        <li>Review the daily diary together</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="insight-card">
+            <h3><i class="fas fa-book"></i> Daily Diary Management</h3>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="text-center p-3">
+                        <button class="btn btn-success" onclick="generateDiary()">
+                            <i class="fas fa-magic"></i> Generate Today's Diary
+                        </button>
+                        <p class="small text-muted mt-2">Manual generation (Auto-generates at 11:30 PM)</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="text-center p-3">
+                        <button class="btn btn-primary" onclick="loadDiaryList()">
+                            <i class="fas fa-list"></i> View All Diaries
+                        </button>
+                        <p class="small text-muted mt-2">Browse past diary entries</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="diaryResult" style="display: none;" class="mt-3"></div>
+            <div id="diaryList" style="display: none;" class="mt-3"></div>
+        </div>
+
+        <div class="insight-card">
+            <h3><i class="fas fa-file-alt"></i> Recent Activity</h3>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="metric-card">
+                        <h4>{{ insights.total_interactions }}</h4>
+                        <p>Total Conversations Today</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="metric-card">
+                        <h4>{{ insights.learning_topics|length + insights.interests|length }}</h4>
+                        <p>Topics Discussed</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="insight-card">
+            <h3><i class="fas fa-calendar-week"></i> Conversation Timeline</h3>
+            <div id="conversationTimeline">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="metric-card">
+                            <h5>Today's Activity</h5>
+                            <p id="todayActivity">{{ insights.total_interactions }} conversations</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="metric-card">
+                            <h5>Most Active Time</h5>
+                            <p id="activeTime">{{ '3:00 PM - 5:00 PM' if insights.total_interactions > 0 else 'No data' }}</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="metric-card">
+                            <h5>Session Quality</h5>
+                            <p id="sessionQuality">{{ 'Good' if insights.engagement == 'High' else 'Fair' if insights.engagement == 'Medium' else 'Low' if insights.engagement == 'Low' else 'No data' }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-4">
+            <button class="btn btn-success" onclick="refreshInsights()">
+                <i class="fas fa-sync-alt"></i> Refresh Insights
+            </button>
+            <button class="btn btn-info" onclick="exportReport()">
+                <i class="fas fa-download"></i> Export Report
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function refreshInsights() {
+            window.location.reload();
+        }
+
+        function exportReport() {
+            // Future feature: Export conversation reports
+            alert('Export feature coming soon! For now, you can view conversation files in the conversations folder.');
+        }
+        
+        function generateDiary() {
+            const resultDiv = document.getElementById('diaryResult');
+            resultDiv.innerHTML = '<div class="alert alert-info"><i class="fas fa-spinner fa-spin"></i> Generating diary entry...</div>';
+            resultDiv.style.display = 'block';
+            
+            fetch('/generate_diary', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    resultDiv.innerHTML = `
+                        <div class="alert alert-success">
+                            <h5><i class="fas fa-check-circle"></i> Diary Generated Successfully!</h5>
+                            <div class="mt-3 p-3 bg-light rounded">
+                                <strong>Today's Diary:</strong><br>
+                                <div style="white-space: pre-line;">${data.content}</div>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `
+                        <div class="alert alert-warning">
+                            <i class="fas fa-exclamation-triangle"></i> ${data.error}
+                        </div>
+                    `;
+                }
+            })
+            .catch(error => {
+                resultDiv.innerHTML = `
+                    <div class="alert alert-danger">
+                        <i class="fas fa-exclamation-circle"></i> Failed to generate diary. Please try again.
+                    </div>
+                `;
+                console.error('Diary generation error:', error);
+            });
+        }
+        
+        function loadDiaryList() {
+            const listDiv = document.getElementById('diaryList');
+            listDiv.innerHTML = '<div class="alert alert-info"><i class="fas fa-spinner fa-spin"></i> Loading diary entries...</div>';
+            listDiv.style.display = 'block';
+            
+            fetch('/diary_list')
+            .then(response => response.json())
+            .then(diaries => {
+                if (diaries.length === 0) {
+                    listDiv.innerHTML = `
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle"></i> No diary entries found yet. Generate your first diary entry!
+                        </div>
+                    `;
+                } else {
+                    let listHTML = '<div class="alert alert-success"><h5><i class="fas fa-book"></i> Available Diary Entries</h5></div>';
+                    listHTML += '<div class="list-group">';
+                    
+                    diaries.forEach(diary => {
+                        listHTML += `
+                            <a href="/view_diary/${diary.date}" class="list-group-item list-group-item-action">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h6 class="mb-1">
+                                        <i class="fas fa-calendar"></i> ${diary.date}
+                                    </h6>
+                                    <small class="text-muted">${diary.generated_at}</small>
+                                </div>
+                                <p class="mb-1">
+                                    <i class="fas fa-comments"></i> ${diary.conversation_count} conversations recorded
+                                </p>
+                            </a>
+                        `;
+                    });
+                    
+                    listHTML += '</div>';
+                    listDiv.innerHTML = listHTML;
+                }
+            })
+            .catch(error => {
+                listDiv.innerHTML = `
+                    <div class="alert alert-danger">
+                        <i class="fas fa-exclamation-circle"></i> Failed to load diary entries.
+                    </div>
+                `;
+                console.error('Diary list error:', error);
+            });
+        }
+
+        // Auto-refresh every 30 seconds if page is visible
+        let refreshInterval;
+
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden) {
+                clearInterval(refreshInterval);
+            } else {
+                refreshInterval = setInterval(function() {
+                    fetch('/api/insights')
+                        .then(response => response.json())
+                        .then(data => {
+                            // Update insights without full page reload
+                            console.log('Updated insights:', data);
+                        })
+                        .catch(error => console.error('Error updating insights:', error));
+                }, 30000);
+            }
+        });
+
+        // Start auto-refresh when page loads
+        if (!document.hidden) {
+            refreshInterval = setInterval(function() {
+                fetch('/api/insights')
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Updated insights:', data);
+                    })
+                    .catch(error => console.error('Error updating insights:', error));
+            }, 30000);
+        }
+    </script>
+</body>
+</html>

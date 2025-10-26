@@ -1,0 +1,74 @@
+[
+  {
+    "timestamp": "2025-10-16T23:28:27",
+    "user": "i should have managed the time more efficiently'",
+    "agent": "I'm really sorry that happened. It can be really frustrating when time gets away from us. Did you find that you were feeling overwhelmed or stressed about the deadline, or was it just a matter of losing track of time?",
+    "mood_hint": "neutral",
+    "interest_tags": []
+  },
+  {
+    "timestamp": "2025-10-16T23:40:34",
+    "user": "hey bro",
+    "agent": "Hey! How's it going today?",
+    "mood_hint": "neutral",
+    "interest_tags": []
+  },
+  {
+    "timestamp": "2025-10-16T23:41:53",
+    "user": "I didnt make my exam well",
+    "agent": "That's rough! What happened in the exam that didn't go as planned?",
+    "mood_hint": "neutral",
+    "interest_tags": []
+  },
+  {
+    "timestamp": "2025-10-16T23:42:34",
+    "user": "yes my time managemment went wrong",
+    "agent": "That's rough! What happened with your time management?",
+    "mood_hint": "neutral",
+    "interest_tags": []
+  },
+  {
+    "timestamp": "2025-10-16T23:51:33",
+    "user": "Hey bro !!",
+    "agent": "What's up!",
+    "mood_hint": "neutral",
+    "interest_tags": []
+  },
+  {
+    "timestamp": "2025-10-16T23:51:49",
+    "user": "i lost foot ball match",
+    "agent": "Oof, that's rough!",
+    "mood_hint": "neutral",
+    "interest_tags": []
+  },
+  {
+    "timestamp": "2025-10-16T23:52:21",
+    "user": "it was actually a rough miss if i have would caught it we would have won",
+    "agent": "Oof, that's rough! What happened in the game?",
+    "mood_hint": "neutral",
+    "interest_tags": []
+  },
+  {
+    "timestamp": "2025-10-16T23:56:08",
+    "user": "Hey bro",
+    "agent": "What's up?",
+    "mood_hint": "neutral",
+    "interest_tags": []
+  },
+  {
+    "timestamp": "2025-10-16T23:56:24",
+    "user": "I lost the cricket match today",
+    "agent": "That's rough! What happened in the game?",
+    "mood_hint": "neutral",
+    "interest_tags": [
+      "sports"
+    ]
+  },
+  {
+    "timestamp": "2025-10-16T23:56:28",
+    "user": "it was just a single run",
+    "agent": "Let's start fresh then!\n\nHey, how's it going today?",
+    "mood_hint": "neutral",
+    "interest_tags": []
+  }
+]

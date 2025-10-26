@@ -1,0 +1,66 @@
+[
+  {
+    "timestamp": "2025-10-19T11:51:58",
+    "user": "hello hi",
+    "agent": "Hey! How's it going today?",
+    "mood_hint": "neutral",
+    "interest_tags": []
+  },
+  {
+    "timestamp": "2025-10-19T11:52:12",
+    "user": "when I just have my computer my maths exam it was kind at half",
+    "agent": "Oof, that's rough! Exams don't define your math skills, though! What topic felt like a challenge for you - algebra, geometry, or something else?",
+    "mood_hint": "neutral",
+    "interest_tags": [
+      "technology",
+      "math"
+    ]
+  },
+  {
+    "timestamp": "2025-10-19T11:52:28",
+    "user": "nevermind",
+    "agent": "Feeling frustrated is normal. Want to talk about what's on your mind?",
+    "mood_hint": "neutral",
+    "interest_tags": []
+  },
+  {
+    "timestamp": "2025-10-19T11:52:41",
+    "user": "how about we talk about something else",
+    "agent": "What's been the highlight of your week so far?",
+    "mood_hint": "neutral",
+    "interest_tags": []
+  },
+  {
+    "timestamp": "2025-10-19T11:52:55",
+    "user": "I want to add competition",
+    "agent": "Oof, that's a tough pill to swallow! What kind of competition are you thinking of?",
+    "mood_hint": "neutral",
+    "interest_tags": [
+      "animals"
+    ]
+  },
+  {
+    "timestamp": "2025-10-19T11:53:10",
+    "user": "I have won the art competition",
+    "agent": "That's awesome! You must be super excited! What was the art piece you created for the competition?",
+    "mood_hint": "neutral",
+    "interest_tags": [
+      "art",
+      "animals"
+    ]
+  },
+  {
+    "timestamp": "2025-10-26T16:36:07",
+    "user": "Hi",
+    "agent": "Hey! What's on your mind today?",
+    "mood_hint": "neutral",
+    "interest_tags": []
+  },
+  {
+    "timestamp": "2025-10-26T16:36:39",
+    "user": "hi there",
+    "agent": "I'm here! What's up?",
+    "mood_hint": "neutral",
+    "interest_tags": []
+  }
+]
