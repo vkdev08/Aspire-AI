@@ -1,12 +1,5 @@
 [
   {
-    "timestamp": "2025-10-19T11:51:58",
-    "user": "hello hi",
-    "agent": "Hey! How's it going today?",
-    "mood_hint": "neutral",
-    "interest_tags": []
-  },
-  {
     "timestamp": "2025-10-19T11:52:12",
     "user": "when I just have my computer my maths exam it was kind at half",
     "agent": "Oof, that's rough! Exams don't define your math skills, though! What topic felt like a challenge for you - algebra, geometry, or something else?",
@@ -62,5 +55,31 @@
     "agent": "I'm here! What's up?",
     "mood_hint": "neutral",
     "interest_tags": []
+  },
+  {
+    "timestamp": "2025-10-26T19:36:03",
+    "user": "hi there",
+    "agent": "I'm here! What's up?",
+    "mood_hint": "neutral",
+    "interest_tags": []
+  },
+  {
+    "timestamp": "2025-10-26T19:36:11",
+    "user": "I almost failed in my maths exam today I am very sad",
+    "agent": "I'm here! What's up?",
+    "mood_hint": "needs_support",
+    "interest_tags": [
+      "technology",
+      "math"
+    ]
+  },
+  {
+    "timestamp": "2025-10-26T19:36:19",
+    "user": "almost failed in my exam today",
+    "agent": "Hey there! How can I help?",
+    "mood_hint": "neutral",
+    "interest_tags": [
+      "technology"
+    ]
   }
 ]
